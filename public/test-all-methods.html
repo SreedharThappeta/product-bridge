@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test All Widget Methods</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f0f0f0;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .code {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+    .note {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 10px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Feedback Widget - All Methods Test</h1>
+
+  <!-- Method 1: iframe -->
+  <div class="section">
+    <h2>Method 1: iframe (Currently Active)</h2>
+    <p>This is the safest method. The widget is completely isolated in an iframe.</p>
+    <div class="code">&lt;script src="http://localhost:3000/widget.js"&gt;&lt;/script&gt;</div>
+    <div id="method-1-widget"></div>
+    <script src="http://localhost:3000/widget.js"></script>
+  </div>
+
+  <!-- Method 2: Web Component -->
+  <div class="section">
+    <h2>Method 2: Web Component + Shadow DOM</h2>
+    <p>Modern approach using Web Components and Shadow DOM for encapsulation.</p>
+    <div class="code">&lt;script src="http://localhost:3000/widget-wc.js"&gt;&lt;/script&gt;<br>&lt;feedback-widget&gt;&lt;/feedback-widget&gt;</div>
+    <div class="note">⚠️ Web Component method - check browser console for any errors</div>
+    <script src="http://localhost:3000/widget-wc.js"></script>
+    <feedback-widget></feedback-widget>
+  </div>
+
+  <!-- Method 3: Direct DOM -->
+  <div class="section">
+    <h2>Method 3: Direct DOM Injection</h2>
+    <p>Fastest loading - widget renders directly in the page DOM.</p>
+    <div class="code">&lt;div id="feedback-widget-inline"&gt;&lt;/div&gt;<br>&lt;script&gt;<br>// Use mount API<br>if (window.FeedbackWidget && window.FeedbackWidget.mount) {<br>  window.FeedbackWidget.mount('#feedback-widget-inline');<br>}<br>&lt;/script&gt;</div>
+    <div class="note">⚠️ Inline DOM method - check browser console for any errors</div>
+    <div id="feedback-widget-inline"></div>
+    <script src="http://localhost:3000/widget-inline.js"></script>
+    <script>
+      // Wait a moment for script to load, then mount to specific container
+      setTimeout(() => {
+        if (window.FeedbackWidget && window.FeedbackWidget.mount) {
+          window.FeedbackWidget.mount('#feedback-widget-inline');
+        }
+      }, 100);
+    </script>
+  </div>
+
+  <!-- Method 4: Popup -->
+  <div class="section">
+    <h2>Method 4: Popup/Floating Button</h2>
+    <p>Non-intrusive floating button in the bottom-right corner (check there).</p>
+    <div class="code">&lt;script src="http://localhost:3000/widget-popup.js"&gt;&lt;/script&gt;</div>
+    <div class="note">💬 Look at the bottom-right corner of the page for the floating button!</div>
+    <script src="http://localhost:3000/widget-popup.js"></script>
+  </div>
+
+  <!-- Method 5: SSR -->
+  <div class="section">
+    <h2>Method 5: SSR + Hydration</h2>
+    <p>SEO-friendly - fetch pre-rendered HTML, then hydrate with interactivity.</p>
+    <div class="code">&lt;div id="feedback-widget-ssr"&gt;&lt;/div&gt;<br>&lt;script&gt;<br>fetch('http://localhost:3000/api/widget/render')<br>  .then(r =&gt; r.text())<br>  .then(html =&gt; {<br>    document.getElementById('feedback-widget-ssr').innerHTML = html;<br>  });<br>&lt;/script&gt;<br>&lt;script src="http://localhost:3000/widget-hydrate.js"&gt;&lt;/script&gt;</div>
+    <div class="note">⚠️ SSR method - check browser console for any errors</div>
+    <div id="feedback-widget-ssr"></div>
+    <script>
+      fetch('http://localhost:3000/api/widget/render')
+        .then(r => r.text())
+        .then(html => {
+          document.getElementById('feedback-widget-ssr').innerHTML = html;
+        })
+        .catch(err => {
+          console.error('Failed to fetch SSR widget:', err);
+          document.getElementById('feedback-widget-ssr').innerHTML = '<p style="color: red;">Failed to load SSR widget. Check console for errors.</p>';
+        });
+    </script>
+    <script src="http://localhost:3000/widget-hydrate.js"></script>
+  </div>
+
+  <div class="section" style="background: #fff3cd; border: 1px solid #ffc107;">
+    <h2>Troubleshooting</h2>
+    <p>If any widget doesn't appear:</p>
+    <ul>
+      <li>Check the browser console (F12) for JavaScript errors</li>
+      <li>Make sure http://localhost:3000 is accessible</li>
+      <li>Try refreshing the page</li>
+      <li>Check that the scripts are being downloaded (Network tab)</li>
+    </ul>
+  </div>
+</body>
+</html>
