@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Website</title>
+</head>
+<body>
+  <h1>My Website</h1>
+  <p>Welcome to my site!</p>
+    <!-- Fetch and inject HTML server-side or client-side -->
+    <div id="feedback-widget"></div>
+    <script>
+    fetch('http://localhost:3000/api/widget/render')
+        .then(r => r.text())
+        .then(html => {
+        document.getElementById('feedback-widget').innerHTML = html;
+        });
+    </script>
+    <script src="http://localhost:3000/widget-hydrate.js"></script>
+
+</body>
+</html>

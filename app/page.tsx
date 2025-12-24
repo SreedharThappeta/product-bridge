@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import IntercomComponent from '@/app//Intercome';
 
 export default function Home() {
   return (
@@ -143,6 +144,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <IntercomComponent/>
     </main>
   );
 }
