@@ -4,7 +4,9 @@
       "Bash(npm run build:embeds:*)",
       "Bash(npm run dev:*)",
       "Bash(npm run build:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git push:*)",
+      "Bash(git fetch:*)"
     ]
   }
 }
