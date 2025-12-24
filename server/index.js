@@ -35,8 +35,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL ?? "https://146.190.172.209";
+let PORT;
+let BASE_URL;
+
+// Load runtime configuration just before starting the server
+function loadRuntimeConfig() {
+  PORT = process.env.PORT || 3000;
+  BASE_URL = process.env.BASE_URL ?? "https://146.190.172.209";
+}
+
+// Call this right before app.listen
+loadRuntimeConfig();
 
 // Initial Canvas - displays when the app first loads in the Messenger
 const initialCanvas = {
