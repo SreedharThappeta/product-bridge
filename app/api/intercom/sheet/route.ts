@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const BASE_URL = process.env.BASE_URL || "https://146.190.172.209";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
+  const BASE_URL = process.env.BASE_URL || "https://146.190.172.209";
   console.log("[Intercom Sheet] Request received");
 
   // Parse the form data

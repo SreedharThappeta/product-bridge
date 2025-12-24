@@ -5,6 +5,10 @@ import path from "path";
 import cors from "cors";
 import crypto from "crypto";
 
+import dotenv from "dotenv";
+dotenv.config();
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -31,8 +35,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files
 app.use(express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.PORT || 3001;
-const BASE_URL = process.env.BASE_URL || `https://146.190.172.209`;
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL ?? "https://146.190.172.209";
 
 // Initial Canvas - displays when the app first loads in the Messenger
 const initialCanvas = {

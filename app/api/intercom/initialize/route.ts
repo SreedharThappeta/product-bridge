@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
-const BASE_URL = process.env.BASE_URL || "https://146.190.172.209";
+export const dynamic = "force-dynamic";
 
 export async function POST() {
+  const BASE_URL = process.env.BASE_URL || "https://146.190.172.209";
+
   const initialCanvas = {
     canvas: {
       content: {
@@ -36,7 +38,7 @@ export async function POST() {
     },
   };
 
-  console.log("[Intercom Initialize] Request received");
+  console.log("[Intercom Initialize] Request received, BASE_URL:", BASE_URL);
   return NextResponse.json(initialCanvas);
 }
 
