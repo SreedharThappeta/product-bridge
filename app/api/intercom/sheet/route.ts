@@ -18,6 +18,8 @@ export async function POST(request: NextRequest) {
     console.log("[Intercom Sheet] No form data");
   }
 
+  // <iframe src="${BASE_URL}/widget" id="widgetFrame" allow="clipboard-write"></iframe>
+
   // Return the HTML page with the embedded widget
   const html = `
     <!DOCTYPE html>
@@ -65,7 +67,8 @@ export async function POST(request: NextRequest) {
     </head>
     <body>
       <button class="close-btn" id="closeBtn" title="Close">&times;</button>
-      <iframe src="${BASE_URL}/widget" id="widgetFrame" allow="clipboard-write"></iframe>
+      <script src="${BASE_URL}/widget-wc.js"></script>
+      <feedback-widget></feedback-widget>
 
       <script>
         document.getElementById('closeBtn').addEventListener('click', function() {
