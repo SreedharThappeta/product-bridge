@@ -9,7 +9,10 @@
       "Bash(git fetch:*)",
       "Bash(dir /b \"c:\\\\Users\\\\tappe\\\\OneDrive\\\\Desktop\\\\sreedhar\\\\widget\")",
       "Bash(cat:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(git stash:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)"
     ]
   }
 }
