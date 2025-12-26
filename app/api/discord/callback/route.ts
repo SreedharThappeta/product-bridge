@@ -51,7 +51,7 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(request: Request): Promise<NextResponse> {
   const url = new URL(request.url);
-  const baseUrl = process.env.BASE_URL;
+  const baseUrl = process.env.BASE_URL as string || `${url.protocol}//${url.host}`;
 
   // Parse state from cookie
   const cookieHeader = request.headers.get("cookie");
