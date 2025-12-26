@@ -28,6 +28,15 @@ const nextConfig: NextConfig = {
           { key: "X-Requested-With", value: "XMLHttpRequest" },
         ],
       },
+      {
+        // Slack API endpoints - allow POST requests from Slack servers
+        source: "/api/slack/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, POST, OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type, X-Slack-Signature, X-Slack-Request-Timestamp" },
+        ],
+      },
     ];
   },
 };

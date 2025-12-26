@@ -6,7 +6,10 @@
       "Bash(npm run build:*)",
       "Bash(curl:*)",
       "Bash(git push:*)",
-      "Bash(git fetch:*)"
+      "Bash(git fetch:*)",
+      "Bash(dir /b \"c:\\\\Users\\\\tappe\\\\OneDrive\\\\Desktop\\\\sreedhar\\\\widget\")",
+      "Bash(cat:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }
