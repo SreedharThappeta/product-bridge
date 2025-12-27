@@ -53,6 +53,11 @@ export async function GET(request: Request): Promise<NextResponse> {
   const url = new URL(request.url);
   const baseUrl = process.env.BASE_URL as string || `${url.protocol}//${url.host}`;
 
+  // =============================================================================
+  // TEST MODE: Skip state validation for testing
+  // =============================================================================
+  const TEST_MODE = process.env.DISCORD_TEST_MODE === "true";
+
   // Parse state from cookie
   const cookieHeader = request.headers.get("cookie");
   const storedState = parseStateCookie(cookieHeader);
@@ -87,21 +92,25 @@ export async function GET(request: Request): Promise<NextResponse> {
     const guildId = url.searchParams.get("guild_id");
     const permissions = url.searchParams.get("permissions");
 
-    // Validate state for CSRF protection
-    const stateValidation = validateState(storedState, receivedState);
-    if (!stateValidation.valid) {
-      console.error("[Discord Callback] State validation failed:", stateValidation.error);
+    // Validate state for CSRF protection (skip in test mode)
+    if (!TEST_MODE) {
+      const stateValidation = validateState(storedState, receivedState);
+      if (!stateValidation.valid) {
+        console.error("[Discord Callback] State validation failed:", stateValidation.error);
 
-      logSecurityEvent("state_mismatch", {
-        error: stateValidation.error,
-        ip: request.headers.get("x-forwarded-for") || undefined,
-      });
+        logSecurityEvent("state_mismatch", {
+          error: stateValidation.error,
+          ip: request.headers.get("x-forwarded-for") || undefined,
+        });
 
-      return createErrorRedirect(baseUrl, "/", {
-        error: "state_invalid",
-        message: stateValidation.error,
-        clearCookie: clearCookieHeader,
-      });
+        return createErrorRedirect(baseUrl, "/", {
+          error: "state_invalid",
+          message: stateValidation.error,
+          clearCookie: clearCookieHeader,
+        });
+      }
+    } else {
+      console.log("[Discord Callback] TEST MODE - Skipping state validation");
     }
 
     // Check for authorization code

@@ -31,6 +31,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   const guildId = url.searchParams.get("guild_id");
 
   // Build simple bot invite URL (no code grant, just bot scope)
+  // Using discord.com/oauth2/authorize instead of api/oauth2/authorize
   const params = new URLSearchParams({
     client_id: clientId,
     permissions: "19456", // Send Messages (2048) + View Channel (1024) + Embed Links (16384)
@@ -43,7 +44,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     params.set("disable_guild_select", "true");
   }
 
-  const inviteUrl = `https://discord.com/api/oauth2/authorize?${params.toString()}`;
+  const inviteUrl = `https://discord.com/oauth2/authorize?${params.toString()}`;
 
   // Return HTML page with auto-redirect and instructions
   return new NextResponse(
